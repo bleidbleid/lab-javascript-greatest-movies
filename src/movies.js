@@ -63,7 +63,8 @@ console.log(scoresAverage(moviesArray));
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
-    if (moviesArray === 0) return 0;
+    let averageDrama = 0;
+    if (moviesArray.length === 0) return 0;
 
     const dramaMovies = moviesArray.filter((movie) => movie.genre.includes('Drama'));
     if (dramaMovies.length === 0) return 0;
@@ -74,12 +75,13 @@ function dramaMoviesScore(moviesArray) {
     const totalDrama = dramaScore.reduce((b, a) => (b.score + a.score));
     if (totalDrama.length === 0) return 0;
 
-    const averageDrama = totalDrama / dramaMovies.length;
+    averageDrama = totalDrama / dramaMovies.length;
     if (averageDrama.length === 0) return 0;
 
 
-    return Math.round(averageDrama * 100) / 100;
-
+    let dosDescimals = parseFloat(averageDrama.toFixed(2));
+    return dosDescimals;
+    
 }
 
 
@@ -88,10 +90,37 @@ function dramaMoviesScore(moviesArray) {
 
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) { }
+
+function orderByYear(moviesArray) {
+    //la Jasmine diu que no he creat un array nou. Però sinò, què és això d'aquí?
+    let orderedMovies = []
+    orderedMovies = moviesArray.sort((movie2, movie1) => {
+        if (movie2.year < movie1.year) return -1;
+        if (movie2.year > movie1.year) return 1;
+        else {
+            // Si es el mateix any, ordena-les alfabèticament
+            if (movie2.title > movie1.title) return 1;
+            else if (movie2.title < movie1.title) return -1;
+            return 0;
+        }
+    })
+    return orderedMovies;
+}
+
+
+
+
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) { }
+function orderAlphabetically(moviesArray) {
+    const alphaOrder = moviesArray.map((movie)=>movie.title).sort()
+    if (alphaOrder.length > 20) {
+        alphaOrder.length=20
+    }
+    return alphaOrder
+
+}
+
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) { }
